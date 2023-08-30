@@ -1,0 +1,8 @@
+ttach
+ultralytics
+opencv-python
+streamlit
+numpy
+torch
+Pillow
+pathlib
