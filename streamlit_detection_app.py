@@ -40,10 +40,6 @@ if model_type=="View-training-Data-profiling-Report":
     # Display each page as an image
     for page_num, image in enumerate(images, 1):
         st.image(image, use_column_width=True, caption=f"Page {page_num}")
-
-confidence = float(st.sidebar.slider(
-    "Select Model Confidence", 20, 100, 35)) / 100
-
 # Selecting Detection Or Segmentation
 if model_type == 'Detection':
     model_path = Path(settings.DETECTION_MODEL)
@@ -68,6 +64,8 @@ source_radio = st.sidebar.radio(
 source_img = None
 # If image is selected
 if source_radio == settings.IMAGE:
+    confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 20, 100, 35)) / 100
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'), accept_multiple_files=True)
     
@@ -167,15 +165,23 @@ if source_radio == settings.IMAGE:
     
 
 elif source_radio == settings.VIDEO:
+    confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 20, 100, 35)) / 100
     helper.play_stored_video(confidence, model)
 
 elif source_radio == settings.WEBCAM:
+    confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 20, 100, 35)) / 100
     helper.play_webcam(confidence, model)
 
 elif source_radio == settings.RTSP:
+    confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 20, 100, 35)) / 100
     helper.play_rtsp_stream(confidence, model)
 
 elif source_radio == settings.YOUTUBE:
+    confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 20, 100, 35)) / 100
     helper.play_youtube_video(confidence, model)
 
 else:
