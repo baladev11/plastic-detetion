@@ -37,7 +37,7 @@ VIDEOS_DICT = {
 
 # ML Model config
 MODEL_DIR = ROOT / 'models'
-DETECTION_MODEL = MODEL_DIR / 'vision_giant.onnx'
+DETECTION_MODEL = MODEL_DIR / 'vision_giant.pt'
 SEGMENTATION_MODEL = MODEL_DIR / 'yolov8n-seg.pt'
 
 # Webcam
