@@ -99,15 +99,15 @@ if source_radio == settings.IMAGE:
                 # Function to run YOLOv5 inference and display the results
                 for source_image in source_img:
                     file_name.append(source_image.name)
-                    uploaded_image = PIL.Image.open(source_image)
                     res = model.predict(uploaded_image,conf=confidence)
                     res_plotted = res[0].plot()[:, :, ::-1]
                     detected_images.append(res_plotted)
                     boxes = res[0].boxes
                     for box in boxes:
                         cls.append("Plastic")
-                        conf.append(box.data.tolist()[0][-2])
-                        box_co=box.data.tolist()[0][0:4]
+                        uploaded_image = PIL.Image.open(source_image)
+                        conf.append(round(box.conf.tolist()[0],3))
+                        box_co=box.xyxyn.tolist()[0]
                         x.append(box_co[0])
                         y.append(box_co[1])
                         w.append(box_co[2])
