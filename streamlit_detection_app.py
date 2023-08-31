@@ -93,19 +93,21 @@ if source_radio == settings.IMAGE:
                 w=[]
                 h=[]
                 file_name=[]
+                img_name_up=[]
                 for uploaded_image in source_img:
                     uploaded_image = PIL.Image.open(uploaded_image)
                     uploaded_images.append(uploaded_image)
                 # Function to run YOLOv5 inference and display the results
                 for source_image in source_img:
-                    file_name.append(source_image.name)
+                    uploaded_image = PIL.Image.open(source_image)
+                    img_name_up.append(source_image.name)
                     res = model.predict(uploaded_image,conf=confidence)
                     res_plotted = res[0].plot()[:, :, ::-1]
                     detected_images.append(res_plotted)
                     boxes = res[0].boxes
                     for box in boxes:
                         cls.append("Plastic")
-                        uploaded_image = PIL.Image.open(source_image)
+                        file_name.append(source_image.name)
                         conf.append(round(box.conf.tolist()[0],3))
                         box_co=box.xyxyn.tolist()[0]
                         x.append(box_co[0])
@@ -114,12 +116,12 @@ if source_radio == settings.IMAGE:
                         h.append(box_co[3])
                 df=pd.DataFrame({'File_name':file_name,"X": x,"Y": y,"Width":w,"Height":h,"class":cls,"confidence":conf})
                 # Display the original and detected images
-                def display_images(original_image_path, detected_image_path):
+                def display_images(original_image_path, detected_image_path,image_name):
                     with col1:
-                        st.image(original_image_path, caption="Original Image", use_column_width=True)
+                        st.image(original_image_path, caption=f"Original Image:{image_name}", use_column_width=True)
                     
                     with col2:
-                        st.image(detected_image_path, caption="Detected Image", use_column_width=True)
+                        st.image(detected_image_path, caption=f"Detected Image:{image_name}", use_column_width=True)
                         with st.expander("Detection Results"):
                             st.dataframe(df)   
                             csv_file = df.to_csv(index=False)
@@ -141,7 +143,8 @@ if source_radio == settings.IMAGE:
                         # Get paths for the new images and update the display
                 original_image_path = uploaded_images[image_index]
                 detected_image_path = detected_images[image_index]
-                display_images(original_image_path, detected_image_path)
+                image_name=img_name_up[image_index]
+                display_images(original_image_path, detected_image_path,image_name)
     except Exception as ex:
             st.error("Error occurred while opening the image.")
             st.error(ex)
