@@ -10,6 +10,8 @@ import streamlit as st
 import settings
 import helper
 import pandas as pd
+from pdf2image import convert_from_path
+import io
 
 # Setting page layout
 st.set_page_config(
@@ -27,7 +29,17 @@ st.sidebar.header("ML Model Config")
 
 # Model Options
 model_type = st.sidebar.radio(
-    "Select Task", ['Detection'])
+    "Select Task", ["View-training-Data-profiling-Report",'Detection'])
+
+pdf_path = "Report.pdf"
+
+if model_type=="View-training-Data-profiling-Report":
+    # Convert the PDF to images
+    images = convert_from_path(pdf_path)
+    
+    # Display each page as an image
+    for page_num, image in enumerate(images, 1):
+        st.image(image, use_column_width=True, caption=f"Page {page_num}")
 
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 20, 100, 35)) / 100
