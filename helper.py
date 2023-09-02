@@ -21,10 +21,10 @@ def load_model(model_path):
 
 
 def display_tracker_options():
-    display_tracker = st.radio("Display Tracker", ('Yes', 'No'))
+    display_tracker = st.sidebar.radio("Display Tracker", ('Yes', 'No'))
     is_display_tracker = True if display_tracker == 'Yes' else False
     if is_display_tracker:
-        tracker_type = st.radio("Tracker", ("bytetrack.yaml", "botsort.yaml"))
+        tracker_type = st.sidebar.radio("Tracker", ("bytetrack.yaml", "botsort.yaml"))
         return is_display_tracker, tracker_type
     return is_display_tracker, None
 
@@ -200,36 +200,38 @@ def play_stored_video(conf, model):
         "Choose a video...", settings.VIDEOS_DICT.keys())
 
     is_display_tracker, tracker = display_tracker_options()
-
-    with open(settings.VIDEOS_DICT.get(source_vid), 'rb') as video_file:
-        video_bytes = video_file.read()
-    if video_bytes:
-        st.video(video_bytes)
+    col1, col2 = st.columns(2)
+    with col1:
+        with open(settings.VIDEOS_DICT.get(source_vid), 'rb') as video_file:
+            video_bytes = video_file.read()
+        if video_bytes:
+            st.video(video_bytes)
 
     if st.sidebar.button('Detect Video Objects'):
-        try:
-            vid_cap = cv2.VideoCapture(
-                str(settings.VIDEOS_DICT.get(source_vid)))
-            st_frame = st.empty()
-            while (vid_cap.isOpened()):
-                success, image = vid_cap.read()
-                if success:
-                    _display_detected_frames(conf,
-                                             model,
-                                             st_frame,
-                                             image,
-                                             is_display_tracker,
-                                             tracker
-                                             )
-                    obj_s=round(obj[0],1)
-                    obj_c=obj[1]
-                    st.empty()
-                    col1, col2, col3 = st.columns(3)
-                    col1.write(f"Inference time: {obj_s}")
-                    col2.write(f"Inference time: {obj}")
-                    col3.write(f"Frame number: {count}")
-                else:
-                    vid_cap.release()
-                    break
-        except Exception as e:
-            st.sidebar.error("Error loading video: " + str(e))
+         with col2:  
+            try:
+                vid_cap = cv2.VideoCapture(
+                    str(settings.VIDEOS_DICT.get(source_vid)))
+                st_frame = st.empty()
+                while (vid_cap.isOpened()):
+                    success, image = vid_cap.read()
+                    if success:
+                        _display_detected_frames(conf,
+                                                 model,
+                                                 st_frame,
+                                                 image,
+                                                 is_display_tracker,
+                                                 tracker
+                                                 )
+                        obj_s=round(obj[0],1)
+                        obj_c=obj[1]
+                        st.empty()
+                        col1, col2, col3 = st.columns(3)
+                        col1.write(f"Inference time: {obj_s}")
+                        col2.write(f"Inference time: {obj}")
+                        col3.write(f"Frame number: {count}")
+                    else:
+                        vid_cap.release()
+                        break
+            except Exception as e:
+                st.sidebar.error("Error loading video: " + str(e))
