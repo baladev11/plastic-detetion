@@ -56,12 +56,15 @@ def _display_detected_frames(conf, model, st_frame, image, is_display_tracking=N
 
     # # Plot the detected objects on the video frame
     res_plotted = res[0].plot()
+    speed=res[0].speed["inference"]
+    boxes_len=len(res[0].boxes)
+    
     st_frame.image(res_plotted,
                    caption='Detected Video',
                    channels="BGR",
                    use_column_width=True
                    )
-
+    return [speed,boxes_len]
 
 def play_youtube_video(conf, model):
     """
@@ -91,7 +94,7 @@ def play_youtube_video(conf, model):
             while (vid_cap.isOpened()):
                 success, image = vid_cap.read()
                 if success:
-                    _display_detected_frames(conf,
+                    obj=_display_detected_frames(conf,
                                              model,
                                              st_frame,
                                              image,
@@ -218,6 +221,13 @@ def play_stored_video(conf, model):
                                              is_display_tracker,
                                              tracker
                                              )
+                    obj_s=round(obj[0],1)
+                    obj_c=obj[1]
+                    st.empty()
+                    col1, col2, col3 = st.columns(3)
+                    col1.write(f"Inference time: {obj_s}")
+                    col2.write(f"Inference time: {obj}")
+                    col3.write(f"Frame number: {count}")
                 else:
                     vid_cap.release()
                     break
