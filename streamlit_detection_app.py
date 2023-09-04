@@ -15,7 +15,7 @@ import io
 
 # Setting page layout
 st.set_page_config(
-    page_title="Object Detection using YOLOv8",
+    page_title="Eagle Eye Plastic Detector",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -25,29 +25,30 @@ st.set_page_config(
 st.title("Object Detection using YOLOv8")
 
 # Sidebar
-st.sidebar.header("ML Model Config")
+st.sidebar.header("Features and configurations")
 
 # Model Options
-model_type = st.sidebar.radio(
-    "Select Task", ["View-training-Data-profiling-Report",'Detection'])
+# model_type = st.sidebar.radio(
+#     "Select Task", ["View-training-Data-profiling-Report",'Detection'])
 
-pdf_path = "Report.pdf"
+# pdf_path = "Report.pdf"
 
-if model_type=="View-training-Data-profiling-Report":
-    # Convert the PDF to images
-    images = convert_from_path(pdf_path)
+# if model_type=="View-training-Data-profiling-Report":
+#     # Convert the PDF to images
+#     images = convert_from_path(pdf_path)
     
-    # Display each page as an image
-    for page_num, image in enumerate(images, 1):
-        st.image(image, use_column_width=True, caption=f"Page {page_num}")
-# Selecting Detection Or Segmentation
-if model_type == 'Detection':
-    model_path = Path(settings.DETECTION_MODEL)
-elif model_type == 'Segmentation':
-    model_path = Path(settings.SEGMENTATION_MODEL)
+#     # Display each page as an image
+#     for page_num, image in enumerate(images, 1):
+#         st.image(image, use_column_width=True, caption=f"Page {page_num}")
+# # Selecting Detection Or Segmentation
+# if model_type == 'Detection':
+#     model_path = Path(settings.DETECTION_MODEL)
+# elif model_type == 'Segmentation':
+#     model_path = Path(settings.SEGMENTATION_MODEL)
 
 # Load Pre-trained ML Model
 try:
+    model_path = Path(settings.DETECTION_MODEL)
     model = helper.load_model(model_path)
 except Exception as ex:
     st.error(f"Unable to load model. Check the specified path: {model_path}")
