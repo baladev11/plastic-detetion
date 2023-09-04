@@ -25,7 +25,7 @@ SOURCES_LIST = [IMAGE, VIDEO,]
 
 # Images config
 IMAGES_DIR = ROOT / 'images/sample_images'
-DEFAULT_IMAGE = 'images/DJI_0023.jpg'
+DEFAULT_IMAGE = 'images/DJI_0255.jpg'
 DEFAULT_DETECT_IMAGE = 'images/DJI_0023_detected.jpg'
 
 # Videos config
