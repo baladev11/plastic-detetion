@@ -22,7 +22,7 @@ st.set_page_config(
 )
 
 # Main page heading
-st.title("Object Detection using YOLOv8")
+st.title("Eagle Eye Plastic Detector")
 
 # Sidebar
 st.sidebar.header("Features and configurations")
