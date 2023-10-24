@@ -4,7 +4,6 @@ opencv-python
 streamlit
 numpy
 torch
-lap
 Pillow
 pathlib
 pytube
