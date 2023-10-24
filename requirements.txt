@@ -3,6 +3,7 @@ ultralytics
 opencv-python
 streamlit
 numpy
+git+https://github.com/gatagat/lap@new-packaging
 torch
 Pillow
 pathlib
