@@ -284,7 +284,7 @@ def play_stored_video(conf, model):
                         st.empty()
                         col1, col2, col3 = st.columns(3)
                         col1.write(f"Inference time: {obj_s}")
-                        col2.write(f"Inference time: {obj}")
+                        col2.write(f"object count: {obj}")
                         col3.write(f"Frame number: {count}")
                          # Create three columns and apply custom headings
                     else:
