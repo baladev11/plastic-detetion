@@ -294,6 +294,20 @@ def play_stored_video(conf, model):
                     print(i)
             except Exception as e:
                 st.sidebar.error("Error loading video: " + str(e))
+            col1, col2, col3 = st.columns(3)
+
+            with col1:
+                st.header(" ")
+                #st.write(f"{speed}s")
+
+            with col2:
+                st.header(" ")
+                #st.write(f"{boxes_len}")
+
+            with col3:
+                #count=1
+                st.header(" ")
+                #st.write(f"{count}")
 
 
     
