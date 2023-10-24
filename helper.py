@@ -283,7 +283,7 @@ def play_stored_video(conf, model):
                         # Add custom CSS to remove column spacing
                         st.empty()
                         col1, col2, col3 = st.columns(3)
-                        col1.write(f"Inference time: {obj_s}")
+                        col1.write(f"Inference time: {obj_s}ms")
                         col2.write(f"object count: {obj}")
                         col3.write(f"Frame number: {count}")
                          # Create three columns and apply custom headings
