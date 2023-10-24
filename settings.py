@@ -30,7 +30,7 @@ DEFAULT_DETECT_IMAGE = 'images/DJI_0023_detected.jpg'
 
 # Videos config
 VIDEO_DIR = ROOT / 'data/sample_videos'
-VIDEO_1_PATH = 'Video_1p5s.mp4'
+VIDEO_1_PATH = 'Video_1p5s_nw.mp4'
 VIDEOS_DICT = {
     'video_1': VIDEO_1_PATH,
 }
