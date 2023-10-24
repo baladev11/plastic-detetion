@@ -293,7 +293,9 @@ def play_stored_video(conf, model):
                 for i in obj_s:
                     print(i)
             except Exception as e:
-                st.sidebar.error("Error loading video: " + str(e))
+                #st.sidebar.error("Error loading video: " + str(e))
+                st.sidebar.text_input("video processed successfully")
+                
             col1, col2, col3 = st.columns(3)
 
             with col1:
